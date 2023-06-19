@@ -1,23 +1,23 @@
-module "main_vpc" {
+module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 7.0"
 
   project_id   = var.project_id
-  network_name = var.general.name_main_vpc
-  description  = "Main VPC"
+  network_name = var.general.name
+  description  = format("%s VPC", var.general.name)
   routing_mode = "GLOBAL"
   mtu          = 1460
 
   subnets = [
     {
-      subnet_name      = format("%s-public", var.general.name_main_vpc)
-      subnet_ip        = var.general.main_subnets.public
+      subnet_name      = format("%s-public", var.general.name)
+      subnet_ip        = var.general.subnets.public
       subnet_region    = var.region
       subnet_flow_logs = "true"
     },
     {
-      subnet_name           = format("%s-privat", var.general.name_main_vpc)
-      subnet_ip             = var.general.main_subnets.privat
+      subnet_name           = format("%s-privat", var.general.name)
+      subnet_ip             = var.general.subnets.privat
       subnet_region         = var.region
       subnet_private_access = "true"
       subnet_flow_logs      = "true"
@@ -25,23 +25,23 @@ module "main_vpc" {
   ]
 
   secondary_ranges = {
-    (format("%s-public", var.general.name_main_vpc)) = [
+    (format("%s-public", var.general.name)) = [
       {
-        range_name    = format("%s-public-svc", var.general.name_main_vpc)
+        range_name    = format("%s-public-svc", var.general.name)
         ip_cidr_range = "100.10.10.0/24"
       },
       {
-        range_name    = format("%s-public-pod", var.general.name_main_vpc)
+        range_name    = format("%s-public-pod", var.general.name)
         ip_cidr_range = "100.10.11.0/24"
       },
     ]
-    (format("%s-privat", var.general.name_main_vpc)) = [
+    (format("%s-privat", var.general.name)) = [
       {
-        range_name    = format("%s-privat-svc", var.general.name_main_vpc)
+        range_name    = format("%s-privat-svc", var.general.name)
         ip_cidr_range = "100.11.10.0/24"
       },
       {
-        range_name    = format("%s-privat-pod", var.general.name_main_vpc)
+        range_name    = format("%s-privat-pod", var.general.name)
         ip_cidr_range = "100.11.11.0/24"
       },
     ]
@@ -113,10 +113,10 @@ module "main_vpc" {
 }
 
 resource "google_compute_router" "main_router" {
-  name    = format("%s-router", var.general.name_main_vpc)
+  name    = format("%s-router", var.general.name)
   project = var.project_id
   region  = var.region
-  network = module.main_vpc.network_name
+  network = module.vpc.network_name
 
   bgp {
     asn = 64514
@@ -124,7 +124,7 @@ resource "google_compute_router" "main_router" {
 }
 
 resource "google_compute_router_nat" "main_nat" {
-  name                               = format("%s-nat", var.general.name_main_vpc)
+  name                               = format("%s-nat", var.general.name)
   project                            = var.project_id
   router                             = google_compute_router.main_router.name
   region                             = google_compute_router.main_router.region

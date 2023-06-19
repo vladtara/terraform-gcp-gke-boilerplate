@@ -1,20 +1,20 @@
-module "main_gke" {
+module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
   version = "26.1.1"
 
   project_id         = var.project_id
-  name               = var.general.cluster_main_name
-  description        = format("%s cluster", var.general.cluster_main_name)
-  kubernetes_version = var.general.cluster_main_version
+  name               = var.general.name
+  description        = format("%s cluster", var.general.name)
+  kubernetes_version = var.general.version
   release_channel    = var.general.release_channel
 
   regional           = true
   region             = var.region
-  network_project_id = data.terraform_remote_state.vpc.outputs.main_vpc.project_id
-  network            = data.terraform_remote_state.vpc.outputs.main_vpc.network_name
-  subnetwork         = data.terraform_remote_state.vpc.outputs.main_vpc.subnets_names[1]
-  ip_range_pods      = data.terraform_remote_state.vpc.outputs.main_vpc.subnets_secondary_ranges[1].*.range_name[1]
-  ip_range_services  = data.terraform_remote_state.vpc.outputs.main_vpc.subnets_secondary_ranges[1].*.range_name[0]
+  network_project_id = module.vpc.project_id
+  network            = module.vpc.network_name
+  subnetwork         = module.vpc.subnets_names[1]
+  ip_range_pods      = module.vpc.subnets_secondary_ranges[1].*.range_name[1]
+  ip_range_services  = module.vpc.subnets_secondary_ranges[1].*.range_name[0]
 
   create_service_account             = true
   add_cluster_firewall_rules         = false
@@ -37,6 +37,6 @@ module "main_gke" {
 
   identity_namespace = "enabled"
   cluster_resource_labels = {
-    cluster_name = var.general.cluster_main_name
+    cluster_name = var.general.name
   }
 }

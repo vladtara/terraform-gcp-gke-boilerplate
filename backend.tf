@@ -3,7 +3,7 @@ terraform {
     organization = "glapss"
 
     workspaces {
-      name = "gcp-vpc"
+      name = "gcp-gke-main"
     }
   }
 }
