@@ -3,20 +3,20 @@ module "vpc" {
   version = "~> 7.0"
 
   project_id   = var.project_id
-  network_name = var.general.name
-  description  = format("%s VPC", var.general.name)
+  network_name = local.general_name
+  description  = format("vpc %s", local.general_name)
   routing_mode = "GLOBAL"
   mtu          = 1460
 
   subnets = [
     {
-      subnet_name      = format("%s-public", var.general.name)
+      subnet_name      = format("%s-public", local.general_name)
       subnet_ip        = var.general.subnets.public
       subnet_region    = var.region
       subnet_flow_logs = "true"
     },
     {
-      subnet_name           = format("%s-privat", var.general.name)
+      subnet_name           = format("%s-privat", local.general_name)
       subnet_ip             = var.general.subnets.privat
       subnet_region         = var.region
       subnet_private_access = "true"
@@ -25,23 +25,23 @@ module "vpc" {
   ]
 
   secondary_ranges = {
-    (format("%s-public", var.general.name)) = [
+    (format("%s-public", local.general_name)) = [
       {
-        range_name    = format("%s-public-svc", var.general.name)
+        range_name    = format("%s-public-svc", local.general_name)
         ip_cidr_range = "100.10.10.0/24"
       },
       {
-        range_name    = format("%s-public-pod", var.general.name)
+        range_name    = format("%s-public-pod", local.general_name)
         ip_cidr_range = "100.10.11.0/24"
       },
     ]
-    (format("%s-privat", var.general.name)) = [
+    (format("%s-privat", local.general_name)) = [
       {
-        range_name    = format("%s-privat-svc", var.general.name)
+        range_name    = format("%s-privat-svc", local.general_name)
         ip_cidr_range = "100.11.10.0/24"
       },
       {
-        range_name    = format("%s-privat-pod", var.general.name)
+        range_name    = format("%s-privat-pod", local.general_name)
         ip_cidr_range = "100.11.11.0/24"
       },
     ]
@@ -113,7 +113,7 @@ module "vpc" {
 }
 
 resource "google_compute_router" "main_router" {
-  name    = format("%s-router", var.general.name)
+  name    = format("%s-router", local.general_name)
   project = var.project_id
   region  = var.region
   network = module.vpc.network_name
@@ -121,10 +121,14 @@ resource "google_compute_router" "main_router" {
   bgp {
     asn = 64514
   }
+
+  depends_on = [
+    module.vpc
+  ]
 }
 
 resource "google_compute_router_nat" "main_nat" {
-  name                               = format("%s-nat", var.general.name)
+  name                               = format("%s-nat", local.general_name)
   project                            = var.project_id
   router                             = google_compute_router.main_router.name
   region                             = google_compute_router.main_router.region
@@ -135,4 +139,8 @@ resource "google_compute_router_nat" "main_nat" {
     enable = true
     filter = "ERRORS_ONLY"
   }
+
+  depends_on = [
+    module.vpc
+  ]
 }

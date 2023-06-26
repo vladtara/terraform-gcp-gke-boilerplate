@@ -3,8 +3,8 @@ module "gke" {
   version = "26.1.1"
 
   project_id         = var.project_id
-  name               = var.general.name
-  description        = format("%s cluster", var.general.name)
+  name               = local.general_name
+  description        = format("gke %s cluster", local.general_name)
   kubernetes_version = var.general.version
   release_channel    = var.general.release_channel
 
@@ -37,6 +37,12 @@ module "gke" {
 
   identity_namespace = "enabled"
   cluster_resource_labels = {
-    cluster_name = var.general.name
+    cluster_name = local.general_name
   }
+
+  depends_on = [
+    module.vpc,
+    resource.google_compute_router.main_router,
+    resource.google_compute_router_nat.main_nat
+  ]
 }

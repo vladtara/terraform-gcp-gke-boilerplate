@@ -3,6 +3,6 @@ module "gke_auth" {
   version = "~> 26.1.1"
 
   project_id   = var.project_id
-  location     = var.region
+  location     = module.gke.location
   cluster_name = module.gke.name
 }

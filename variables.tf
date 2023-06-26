@@ -8,6 +8,11 @@ variable "region" {
   description = "Default region name"
 }
 
+variable "name" {
+  type        = string
+  description = "Name"
+}
+
 variable "general" {
   type        = any
   description = "General settings"
