@@ -1,0 +1,13 @@
+global:
+  leaderElection:
+    namespace: cert-manager
+resources:
+  limits:
+    cpu: 500m
+    memory: 500Mi
+  requests:
+    cpu: 250m
+    memory: 500Mi
+extraArgs:
+  - --dns01-recursive-nameservers-only
+  - --dns01-recursive-nameservers=8.8.8.8:53,8.8.4.4:53

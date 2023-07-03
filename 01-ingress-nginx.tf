@@ -6,6 +6,7 @@ resource "helm_release" "ingress_nginx" {
   namespace        = var.general.ingress_nginx.namespace
   create_namespace = true
   wait             = false
+  timeout          = 900
 
   values = [
     templatefile(var.general.ingress_nginx.values_path, {})

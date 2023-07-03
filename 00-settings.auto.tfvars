@@ -17,4 +17,28 @@ general = {
     namespace   = "ingress-nginx"
     values_path = "./templates/ingress-nginx/ingress-nginx.yaml"
   }
+  cert_manager = {
+    name        = "cert-manager"
+    repository  = "https://charts.jetstack.io"
+    chart       = "cert-manager"
+    version     = "v1.12.0"
+    namespace   = "cert-manager"
+    values_path = "./templates/cert-manager/cert-manager.yaml"
+  }
+  kyverno = {
+    name        = "kyverno"
+    repository  = "https://kyverno.github.io/kyverno"
+    chart       = "kyverno"
+    version     = "3.0.0"
+    namespace   = "kyverno"
+    values_path = "./templates/kyverno/kyverno.yaml"
+  }
+  kyverno_policies = {
+    name        = "kyverno-policies"
+    repository  = "https://kyverno.github.io/kyverno"
+    chart       = "kyverno-policies"
+    version     = "3.0.0"
+    namespace   = "kyverno"
+    values_path = "./templates/kyverno/kyverno-policies.yaml"
+  }
 }
