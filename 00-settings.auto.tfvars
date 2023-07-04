@@ -1,12 +1,12 @@
-project_id = "bustling-surf-390011"
-region     = "europe-west3"
-name       = "main"
+#project_id = "bustling-surf-390011"
+#region     = "europe-west3"
+name = "main"
 general = {
   version         = "1.26.5-gke.1200"
   release_channel = "REGULAR"
   subnets = {
-    public = "10.10.10.0/24"
-    privat = "10.10.100.0/24"
+    public = "10.10.0.0/20"
+    privat = "10.16.0.0/20"
   }
 
   ingress_nginx = {

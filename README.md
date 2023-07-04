@@ -13,6 +13,12 @@ export REGION="europe-west3"
 export CLUSTER_NAME="main"
 gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION --project $PROJECT
 ```
+### Run
+```
+export TF_VAR_project_id="mlops-303712"
+export TF_VAR_region="us-central1"
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

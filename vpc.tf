@@ -28,21 +28,21 @@ module "vpc" {
     (format("%s-public", local.general_name)) = [
       {
         range_name    = format("%s-public-svc", local.general_name)
-        ip_cidr_range = "100.10.10.0/24"
+        ip_cidr_range = "10.221.0.0/20"
       },
       {
         range_name    = format("%s-public-pod", local.general_name)
-        ip_cidr_range = "100.10.11.0/24"
+        ip_cidr_range = "10.151.0.0/18"
       },
     ]
     (format("%s-privat", local.general_name)) = [
       {
         range_name    = format("%s-privat-svc", local.general_name)
-        ip_cidr_range = "100.11.10.0/24"
+        ip_cidr_range = "10.221.32.0/20"
       },
       {
         range_name    = format("%s-privat-pod", local.general_name)
-        ip_cidr_range = "100.11.11.0/24"
+        ip_cidr_range = "10.151.128.0/18"
       },
     ]
   }
@@ -59,7 +59,7 @@ module "vpc" {
 
   firewall_rules = [
     {
-      name                    = "allow-ssh"
+      name                    = "ssh-allow"
       description             = "Allow ssh ingress"
       direction               = "INGRESS"
       priority                = 1000
@@ -76,7 +76,7 @@ module "vpc" {
       ]
     },
     {
-      name                    = "allow-http"
+      name                    = "http-allow"
       description             = "Allow http ingress"
       direction               = "INGRESS"
       priority                = 1000
@@ -93,7 +93,7 @@ module "vpc" {
       ]
     },
     {
-      name                    = "allow-https"
+      name                    = "https-allow"
       description             = "Allow https ingress"
       direction               = "INGRESS"
       priority                = 1000
