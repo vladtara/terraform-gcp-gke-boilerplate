@@ -1,0 +1,113 @@
+---
+createAggregateRoles: true
+createClusterRoles: true
+crds:
+  install: true
+  keep: true
+configs:
+  cm:
+    create: true
+    server.rbac.log.enforce.enable: false
+    exec.enabled: true
+    admin.enabled: true
+    timeout.reconciliation: 180s
+    timeout.hard.reconciliation: 0s
+  params:
+    controller.status.processors: 20
+    controller.operation.processors: 10
+    controller.self.heal.timeout.seconds: 5
+    controller.repo.server.timeout.seconds: 60
+    server.insecure: true
+    server.enable.gzip: true
+    reposerver.parallelism.limit: 0
+    applicationsetcontroller.policy: sync
+    applicationsetcontroller.enable.progressive.syncs: true
+  rbac:
+    create: true
+  cmp:
+    create: false
+  secret:
+    createSecret: true
+controller:
+  name: application-controller
+  replicas: 1
+  args:
+    appResyncPeriod: "30"
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  serviceAccount:
+    create: true
+  clusterRoleRules:
+    enabled: false
+    rules: []
+dex:
+  enabled: false
+  name: dex-server
+redis:
+  enabled: true
+  name: redis
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+redis-ha:
+  enabled: false
+server:
+  name: server
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  serviceAccount:
+    create: true
+repoServer:
+  name: repo-server
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  clusterRoleRules:
+    enabled: false
+    rules: []
+  serviceAccount:
+    create: true
+  rbac:
+    - apiGroups:
+        - argoproj.io
+      resources:
+        - applications
+      verbs:
+        - get
+        - list
+        - watch
+applicationSet:
+  enabled: true
+  name: applicationset-controller
+  replicaCount: 1
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+notifications:
+  enabled: false

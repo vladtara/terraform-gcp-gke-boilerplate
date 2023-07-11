@@ -1,0 +1,47 @@
+---
+createAggregateRoles: true
+singleNamespace: false
+workflow:
+  serviceAccount:
+    create: true
+    name: "argo-workflow"
+  rbac:
+    create: true
+controller:
+  extraEnv:
+    - name: ARGO_EXECUTOR_PLUGINS
+      value: "true"
+  rbac:
+    create: true
+  workflowNamespaces:
+    - argo
+  retentionPolicy:
+    completed: 10
+    failed: 5
+    errored: 5
+  serviceAccount:
+    create: true
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+server:
+  enabled: true
+  rbac:
+    create: true
+  serviceAccount:
+    create: true
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  extraArgs:
+    - --auth-mode=server

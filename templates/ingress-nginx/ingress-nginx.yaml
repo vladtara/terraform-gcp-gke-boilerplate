@@ -1,31 +1,25 @@
+---
 controller:
   replicaCount: 2
-
   ingressClass: nginx
-  
   ingressClassResource:
     name: nginx
-
   config:
     http2: "true"
     log-format-escape-json: "true"
     use-gzip: "true"
-
   resources:
     limits:
       cpu: 500m
       memory: 1000Mi
     requests:
-      cpu: 250m
+      cpu: 500m
       memory: 512Mi
-
   metrics:
     enabled: false
-
   service:
     type: LoadBalancer
     annotations:
       cloud.google.com/l4-rbs: "enabled"
-
 defaultBackend:
   enabled: true

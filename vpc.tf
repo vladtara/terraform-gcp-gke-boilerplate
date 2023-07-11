@@ -28,21 +28,21 @@ module "vpc" {
     (format("%s-public", local.general_name)) = [
       {
         range_name    = format("%s-public-svc", local.general_name)
-        ip_cidr_range = "10.221.0.0/20"
+        ip_cidr_range = "10.100.0.0/20"
       },
       {
         range_name    = format("%s-public-pod", local.general_name)
-        ip_cidr_range = "10.151.0.0/18"
+        ip_cidr_range = "10.200.0.0/20"
       },
     ]
     (format("%s-privat", local.general_name)) = [
       {
         range_name    = format("%s-privat-svc", local.general_name)
-        ip_cidr_range = "10.221.32.0/20"
+        ip_cidr_range = "10.100.32.0/20"
       },
       {
         range_name    = format("%s-privat-pod", local.general_name)
-        ip_cidr_range = "10.151.128.0/18"
+        ip_cidr_range = "10.200.32.0/20"
       },
     ]
   }
