@@ -41,4 +41,37 @@ general = {
     namespace   = "kyverno"
     values_path = "./templates/kyverno/kyverno-policies.yaml"
   }
+  argo_cd = {
+    name        = "argocd"
+    repository  = "https://argoproj.github.io/argo-helm"
+    chart       = "argo-cd"
+    version     = "5.38.0"
+    namespace   = "argo"
+    values_path = "./templates/argo/argo-cd.yaml"
+  }
+  argo_workflows = {
+    name        = "argo-workflows"
+    repository  = "https://argoproj.github.io/argo-helm"
+    chart       = "argo-workflows"
+    version     = "0.31.0"
+    namespace   = "argo"
+    values_path = "./templates/argo/argo-workflows.yaml"
+  }
+  argo_events = {
+    name        = "argo-events"
+    repository  = "https://argoproj.github.io/argo-helm"
+    chart       = "argo-events"
+    version     = "2.4.0"
+    namespace   = "argo"
+    values_path = "./templates/argo/argo-events.yaml"
+  }
+  argo_rollouts = {
+    name        = "argo-rollouts"
+    repository  = "https://argoproj.github.io/argo-helm"
+    chart       = "argo-rollouts"
+    version     = "2.31.0"
+    namespace   = "argo"
+    values_path = "./templates/argo/argo-rollouts.yaml"
+  }
 }
+
