@@ -1,6 +1,6 @@
-#project_id = "bustling-surf-390011"
-#region     = "europe-west3"
-name = "main"
+project_id = "bustling-surf-390011"
+region     = "europe-west3"
+name       = "main"
 general = {
   version         = "1.26.5-gke.1200"
   release_channel = "REGULAR"
