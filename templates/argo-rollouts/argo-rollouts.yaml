@@ -1,0 +1,42 @@
+---
+installCRDs: true
+keepCRDs: true
+clusterInstall: true
+createClusterAggregateRoles: true
+controller:
+  component: rollouts-controller
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  createClusterRole: true
+  metrics:
+    enabled: false
+
+serviceAccount:
+  create: true
+podSecurityContext:
+  runAsNonRoot: true
+
+providerRBAC:
+  enabled: true
+
+dashboard:
+  enabled: true
+  readonly: false
+  component: rollouts-dashboard
+  createClusterRole: true
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  serviceAccount:
+    create: true
