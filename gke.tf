@@ -1,6 +1,6 @@
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
-  version = "26.1.1"
+  version = "~> 26.1.1"
 
   project_id         = var.project_id
   name               = local.general_name
