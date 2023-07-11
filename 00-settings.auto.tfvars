@@ -1,5 +1,7 @@
-project_id = "bustling-surf-390011"
-region     = "europe-west3"
+# project_id = "bustling-surf-390011"
+# region     = "europe-west3"
+project_id = "mlops-303712"
+region     = "us-central1"
 name       = "main"
 general = {
   version         = "1.26.5-gke.1200"
@@ -74,4 +76,3 @@ general = {
     values_path = "./templates/argo/argo-rollouts.yaml"
   }
 }
-

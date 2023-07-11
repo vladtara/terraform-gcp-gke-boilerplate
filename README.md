@@ -28,6 +28,7 @@ export TF_VAR_region="europe-west3"
 | <a name="requirement_google"></a> [google](#requirement\_google) | >= 4.69.1 |
 | <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | >= 4.69.1 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.3.0 |
+| <a name="requirement_http"></a> [http](#requirement\_http) | >= 3.4.0 |
 | <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.7.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.16.1 |
 
@@ -37,7 +38,7 @@ export TF_VAR_region="europe-west3"
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | 4.70.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.10.1 |
-| <a name="provider_http"></a> [http](#provider\_http) | n/a |
+| <a name="provider_http"></a> [http](#provider\_http) | 3.4.0 |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
 
 ## Modules
@@ -54,6 +55,10 @@ export TF_VAR_region="europe-west3"
 |------|------|
 | [google_compute_router.main_router](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router) | resource |
 | [google_compute_router_nat.main_nat](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat) | resource |
+| [helm_release.argo_cd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.argo_events](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.argo_rollouts](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.argo_workflows](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.cert_manager](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.ingress_nginx](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.kyverno](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
